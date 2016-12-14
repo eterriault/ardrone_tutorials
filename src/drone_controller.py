@@ -30,13 +30,13 @@ class BasicDroneController(object):
 		self.status = -1
 
 		# Subscribe to the /ardrone/navdata topic, of message type navdata, and call self.ReceiveNavdata when a message is received
-		self.subNavdata = rospy.Subscriber('/ardrone/navdata',Navdata,self.ReceiveNavdata) 
-		
+		self.subNavdata = rospy.Subscriber('/ardrone/navdata',Navdata,self.ReceiveNavdata)
+
 		# Allow the controller to publish to the /ardrone/takeoff, land and reset topics
 		self.pubLand    = rospy.Publisher('/ardrone/land',Empty)
 		self.pubTakeoff = rospy.Publisher('/ardrone/takeoff',Empty)
 		self.pubReset   = rospy.Publisher('/ardrone/reset',Empty)
-		
+
 		# Allow the controller to publish to the /cmd_vel topic and thus control the drone
 		self.pubCommand = rospy.Publisher('/cmd_vel',Twist)
 
@@ -48,7 +48,7 @@ class BasicDroneController(object):
 		rospy.on_shutdown(self.SendLand)
 
 	def ReceiveNavdata(self,navdata):
-		# Although there is a lot of data in this packet, we're only interested in the state at the moment	
+		# Although there is a lot of data in this packet, we're only interested in the state at the moment
 		self.status = navdata.state
 
 	def SendTakeoff(self):
@@ -76,5 +76,4 @@ class BasicDroneController(object):
 	def SendCommand(self,event):
 		# The previously set command is then sent out periodically if the drone is flying
 		if self.status == DroneStatus.Flying or self.status == DroneStatus.GotoHover or self.status == DroneStatus.Hovering:
-			self.pubCommand.publish(self.command)
-
+			#self.pubCommand.publish(self.command)

@@ -8,7 +8,6 @@
 # Import the ROS libraries, and load the manifest file which through <depend package=... /> will give us access to the project dependencies
 import roslib; roslib.load_manifest('ardrone_tutorials')
 import rospy
-
 # Load the DroneController class, which handles interactions with the drone, and the DroneVideoDisplay class, which handles video display
 from drone_controller import BasicDroneController
 from drone_video_display import DroneVideoDisplay
@@ -36,10 +35,10 @@ class KeyMapping(object):
 class KeyboardController(DroneVideoDisplay):
 	def __init__(self):
 		super(KeyboardController,self).__init__()
-		
+
 		self.pitch = 0
 		self.roll = 0
-		self.yaw_velocity = 0 
+		self.yaw_velocity = 0
 		self.z_velocity = 0
 
 # We add a keyboard handler to the DroneVideoDisplay to react to keypresses
